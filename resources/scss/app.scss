@@ -9,6 +9,49 @@ body {
     overflow-x: hidden;
 }
 
+/* Performance optimizations */
+.lazyload {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.lazyloaded {
+    opacity: 1;
+}
+
+/* Prevent layout shifts for images */
+.aspect-poster,
+.aspect-slide,
+.aspect-square {
+    position: relative;
+    display: block;
+}
+
+.aspect-poster::before {
+    content: '';
+    display: block;
+    padding-top: 150%; /* 2:3 aspect ratio for poster */
+}
+
+.aspect-slide::before {
+    content: '';
+    display: block;
+    padding-top: 41.67%; /* 12:5 aspect ratio for slide */
+}
+
+/* Image optimization */
+img {
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
+    shape-margin: 1rem;
+}
+
+/* Critical image priority */
+img[fetchpriority="high"] {
+    content-visibility: auto;
+}
+
 @import "font.scss";
 @import "tippy.scss";
 @import "select.scss";

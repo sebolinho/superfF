@@ -144,19 +144,28 @@ if (!function_exists('picture')) {
     {
         $allowType = ['post', 'people', 'episode'];
         $sizeHtml = null;
+        $loadingAttr = 'loading="lazy"';
+        $fetchPriorityAttr = '';
+        
         if (isset($size)) {
             $sizeExp = explode(',', $size);
             $sizeHtml = 'width="' . $sizeExp[0] . '" height="' . $sizeExp[1] . '"';
         }
 
+        // Add fetchpriority for critical images (first few images in sliders)
+        if (str_contains($class, 'lcp-image') || str_contains($class, 'eager')) {
+            $loadingAttr = 'loading="eager"';
+            $fetchPriorityAttr = 'fetchpriority="high"';
+        }
+
         if (isset($type) and in_array($type, $allowType) and config('settings.tmdb_image') == 'active') {
             return '<picture>
-                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' . $image . '" alt="' . $title . '" class="lazyload ' . $class . '" ' . $sizeHtml . '>
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' . $image . '" alt="' . $title . '" class="lazyload ' . $class . '" ' . $sizeHtml . ' ' . $loadingAttr . ' ' . $fetchPriorityAttr . '>
             </picture>';
         } elseif (isset($image)) {
             return '<picture>
                 <source data-srcset="' . webper($image) . '" type="image/webp" class="' . $class . '">
-                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' . $image . '" alt="' . $title . '" class="lazyload ' . $class . '" ' . $sizeHtml . '>
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="' . $image . '" alt="' . $title . '" class="lazyload ' . $class . '" ' . $sizeHtml . ' ' . $loadingAttr . ' ' . $fetchPriorityAttr . '>
             </picture>';
         }
 
