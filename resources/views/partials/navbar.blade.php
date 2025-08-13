@@ -43,7 +43,10 @@
                 <!-- Logo -->
                 <a class="" href="{{route('index')}}">
                     @if(config('settings.logo'))
-                        <img src="{{asset('static/img/'.config('settings.logo'))}}" class="w-full h-7"
+                        <img src="{{asset('static/img/'.config('settings.logo'))}}" 
+                             class="w-auto h-10" 
+                             width="auto" 
+                             height="40"
                              alt="{{config('settings.site_name')}}">
                     @else
                         <x-ui.logo height="24" class="text-gray-700 dark:text-white"/>

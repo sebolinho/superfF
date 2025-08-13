@@ -38,32 +38,38 @@
 </div>
 
 @push('javascript')
-
     <script>
-        var {{$layout}} = new Swiper(".swiper-{{$layout}} .swiper", {
-            slidesPerView: 2,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: ".swiper-{{$layout}} .swiper-button-next",
-                prevEl: ".swiper-{{$layout}} .swiper-button-prev",
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 3,
+        document.addEventListener('DOMContentLoaded', function() {
+            var {{$layout}} = new Swiper(".swiper-{{$layout}} .swiper", {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: ".swiper-{{$layout}} .swiper-button-next",
+                    prevEl: ".swiper-{{$layout}} .swiper-button-prev",
                 },
-                768: {
-                    slidesPerView: 4,
+                preloadImages: false,
+                lazy: {
+                    loadPrevNext: true,
+                    loadOnTransitionStart: true
                 },
-                1300: {
-                    slidesPerView: 6,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 3,
+                    },
+                    768: {
+                        slidesPerView: 4,
+                    },
+                    1300: {
+                        slidesPerView: 6,
+                    },
+                    1500: {
+                        slidesPerView: 8,
+                    },
+                    2000: {
+                        slidesPerView: 8,
+                    },
                 },
-                1500: {
-                    slidesPerView: 8,
-                },
-                2000: {
-                    slidesPerView: 8,
-                },
-            },
+            });
         });
     </script>
 @endpush
